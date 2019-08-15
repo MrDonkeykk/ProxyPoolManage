@@ -134,4 +134,9 @@ class RedisClient(object):
         return self.db.zrevrange(REDIS_KEY, start, stop)
 
     def drop(self, proxy):
+        """
+        删除IP
+        :param proxy:
+        :return:
+        """
         self.db.zrem(REDIS_KEY, proxy)

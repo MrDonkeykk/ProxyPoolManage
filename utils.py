@@ -21,21 +21,21 @@ def getPage(url):
     print(Fore.GREEN + '[+] 正在抓取', url)
 
     try:
-        # 代理池为空时，屏蔽下面五行，第一次爬取可不使用代理IP，或者手动设置代理IP
-        proxyFromRedis = RedisClient().random()
-        proxy = {
-                'https': proxyFromRedis,
-                'http': proxyFromRedis
-        }
-        # proxy = {
-        #         'https': '122.136.212.132:53281',
-        #         'http': '122.136.212.132:53281'
-        # }
         headers = {
             'User-Agent': ua.random
         }
-        response = requests.get(url, headers=headers, proxies=proxy)
-        # response = requests.get(url, headers=headers)
+        # 代理池为空时,第一次爬取可不使用代理IP，或者手动设置代理IP
+        redis = RedisClient()
+        if redis.count() == 0:
+            response = requests.get(url, headers=headers)
+        else:
+            proxyFromRedis = redis.random()
+            proxy = {
+                'https': proxyFromRedis,
+                'http': proxyFromRedis
+            }
+            response = requests.get(url, headers=headers, proxies=proxy)
+
         response.raise_for_status()
         response.encoding = response.apparent_encoding
     except Exception as e:
