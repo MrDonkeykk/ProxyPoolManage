@@ -21,6 +21,7 @@ def getPage(url):
     print(Fore.GREEN + '[+] 正在抓取', url)
 
     try:
+        # 代理池为空时，屏蔽下面五行，第一次爬取可不使用代理IP，或者手动设置代理IP
         proxyFromRedis = RedisClient().random()
         proxy = {
                 'https': proxyFromRedis,
