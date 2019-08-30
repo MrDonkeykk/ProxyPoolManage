@@ -59,6 +59,7 @@ class Scheduler():
             print("正在启动GETTER......")
             getter_process = Process(target=self.scheduleGetter)
             getter_process.start()
+            
 
 
 if __name__ == '__main__':
