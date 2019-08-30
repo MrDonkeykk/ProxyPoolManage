@@ -47,7 +47,7 @@ class Scheduler():
         print("代理池开始运行......")
         if API_ENABLED:
             print("正在启动API........")
-            api_process = Process(target=self.scheduleApi())
+            api_process = Process(target=self.scheduleApi)
             api_process.start()
 
         if TESTER_ENABLED:
